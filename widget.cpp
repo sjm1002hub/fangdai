@@ -8,6 +8,7 @@
 #include<qmath.h>
 #include<QVariant>
 #include<QListWidget>
+#include<QMessageBox>
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
@@ -61,8 +62,8 @@ Widget::Widget(QWidget *parent)
        ui->lineEdit_6->setPlaceholderText("请输入房屋面积       平方米");
        ui->lineEdit_7->setPlaceholderText("请输入贷款总额            万");
        ui->lineEdit_8->setPlaceholderText("请输入贷款总额            万");
-       QDoubleValidator *ad=new  QDoubleValidator;
-       ad->setDecimals(2);
+       QIntValidator *ad=new  QIntValidator(1,100000,this);
+
        ui->lineEdit->setValidator(ad);
        ui->lineEdit_2->setValidator(ad);
        ui->lineEdit_3->setValidator(ad);
@@ -167,7 +168,7 @@ Widget::Widget(QWidget *parent)
                       b=e2.toDouble();
                       f=a1.toDouble();
                 if(ui->lineEdit->text().isEmpty()||ui->lineEdit_2->text().isEmpty())
-                 qDebug()<<"请完成填写";
+                 QMessageBox::warning(this,"未完成输入","请完成输入");
                 else
                   if(ui->radioButton->isChecked())
                   {   y=a*b*f*c*0.01/12*qPow((1+c*0.01/12),d)/(qPow((1+c*0.01/12),d)-1);
@@ -190,7 +191,7 @@ Widget::Widget(QWidget *parent)
                       ui->textEdit->append("还款月数:");ui->textEdit->append(QString::number(d));ui->textEdit->textCursor().insertText("个月");
                     }
                   }
-                else if(ui->lineEdit_7->text().isEmpty())   qDebug()<<"请完成填写";
+                else if(ui->lineEdit_7->text().isEmpty())    QMessageBox::warning(this,"未完成输入","请完成输入");
                  else
                      { e1=ui->lineEdit_7->text();
                       a=10000*e1.toDouble();
@@ -233,7 +234,7 @@ Widget::Widget(QWidget *parent)
                       b=e2.toDouble();
                       f=a1.toDouble();
                   if(ui->lineEdit_4->text().isEmpty()||ui->lineEdit_6->text().isEmpty())
-                       qDebug()<<"请完成填写";
+                       QMessageBox::warning(this,"未完成输入","请完成输入");
                  else if(ui->radioButton_5->isChecked())
                   {  int  y=a*b*f*c*0.01/12*qPow((1+c*0.01/12),d)/(qPow((1+c*0.01/12),d)-1);
                       ui->textEdit->append("首付:");ui->textEdit->append(QString::number(a*b*(1-f),'f',2));ui->textEdit->textCursor().insertText("元");
@@ -255,7 +256,7 @@ Widget::Widget(QWidget *parent)
                     }
                   }
                 else if(ui->lineEdit_8->text().isEmpty())
-                        qDebug()<<"请完成填写";
+                        QMessageBox::warning(this,"未完成输入","请完成输入");
                  else {
                       e1=ui->lineEdit_8->text();
                       a=10000*e1.toDouble();
@@ -295,8 +296,7 @@ Widget::Widget(QWidget *parent)
            b=e2.toDouble(); c=10000*e3.toDouble();
            d=e4.toDouble();
            if(ui->lineEdit_3->text().isEmpty()||ui->lineEdit_5->text().isEmpty())
-            qDebug()<<"请完成填写";
-
+             QMessageBox::warning(this,"未完成输入","请完成输入");
            else if(ui->radioButton_3->isChecked())
 
          {
